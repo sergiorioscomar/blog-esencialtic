@@ -1,62 +1,36 @@
+/* data/posts.js - api: https://serggiors.pythonanywhere.com/api/ultimos-posts/ */
 export const POSTS = [
   {
-    id: '1',
-    title: 'Cómo optimizar tu stack en la nube',
-    description: 'Estrategias prácticas para reducir costos y mejorar rendimiento en infraestructuras cloud modernas.',
-    image: 'https://picsum.photos/seed/cloud/800/450',
-    author: 'María López',
-    date: '2025-10-10',
-    category: 'Cloud',
-    content: 'Contenido amplio sobre optimizaciones en la nube...'
+    id: "1",
+    titulo: "Introducción a Docker: La revolución del desarrollo y despliegue",
+    descripcion:
+      "En el mundo del desarrollo de software, Docker se ha convertido en una herramienta esencial para sim...",
+    imagen: "https://serggiors.pythonanywhere.com/media/media/posts/docker.png",
+    categoria: "redes",
+    url: "https://serggiors.pythonanywhere.com/blog/post/8",
+    fecha_publicacion: "2025-08-14 14:31:33",
+    autor: "sergio",
   },
   {
-    id: '2',
-    title: 'Microservicios: errores comunes',
-    description: 'Lecciones aprendidas al migrar monolitos a microservicios y cómo evitarlas.',
-    image: 'https://picsum.photos/seed/micro/800/450',
-    author: 'Javier Torres',
-    date: '2025-09-02',
-    category: 'Arquitectura',
-    content: 'Detalles técnicos sobre fallas típicas en microservicios...'
+    id: "2",
+    titulo: "Mr. Robot: Mucho más que una serie sobre hackers",
+    descripcion:
+      "Mr. Robot es una serie de televisión creada por Sam Esmail que se estrenó en 2015 y rápidamente se c...",
+    imagen: "https://serggiors.pythonanywhere.com/media/media/posts/mrrobot1.png",
+    categoria: "ciberseguridad",
+    url: "https://serggiors.pythonanywhere.com/blog/post/6",
+    fecha_publicacion: "2025-08-14 00:09:54",
+    autor: "sergio",
   },
   {
-    id: '3',
-    title: 'Pruebas automatizadas con Playwright',
-    description: 'Guía rápida para empezar a testear end-to-end con Playwright en proyectos modernos.',
-    image: 'https://picsum.photos/seed/tests/800/450',
-    author: 'Ana García',
-    date: '2025-08-18',
-    category: 'Testing',
-    content: 'Cómo configurar Playwright, ejemplos y buenas prácticas...'
+    id: "3",
+    titulo: "WooCommerce: Convierte tu WordPress en una Tienda Online",
+    descripcion:
+      "Si tienes un sitio web en WordPress y quieres vender productos o servicios, WooCommerce es la herram...",
+    imagen: "https://serggiors.pythonanywhere.com/media/media/posts/whmpress.png",
+    categoria: "desarrollo-web",
+    url: "https://serggiors.pythonanywhere.com/blog/post/5",
+    fecha_publicacion: "2025-08-14 00:06:20",
+    autor: "sergio",
   },
-  {
-    id: '4',
-    title: 'Diseño de APIs RESTful claras',
-    description: 'Principios y patrones para diseñar APIs fáciles de usar y mantener.',
-    image: 'https://picsum.photos/seed/api/800/450',
-    author: 'Carlos Peña',
-    date: '2025-07-05',
-    category: 'API',
-    content: 'Versionado, paginación, filtros y seguridad en APIs RESTful...'
-  },
-  {
-    id: '5',
-    title: 'Optimiza tu React con memo y hooks (cuando puedas)',
-    description: 'Conceptos para evitar renders innecesarios y acelerar interfaces.',
-    image: 'https://picsum.photos/seed/react/800/450',
-    author: 'Sofía Ruiz',
-    date: '2025-06-30',
-    category: 'Frontend',
-    content: 'Patrones de optimización en React, cuándo usar memo, useMemo y más...'
-  },
- {
-    id: '6',
-    title: 'Introducción a Docker para desarrolladores web',
-    description: 'Aprende los conceptos esenciales de Docker para crear entornos reproducibles y desplegar tus apps fácilmente.',
-    image: 'https://picsum.photos/seed/docker/800/450',
-    author: 'Lucía Fernández',
-    date: '2025-10-20',
-    category: 'DevOps',
-    content: 'En este artículo exploramos qué es Docker, cómo crear tus primeros contenedores y las mejores prácticas para integrarlo en tu flujo de desarrollo.'
-    }
 ];
