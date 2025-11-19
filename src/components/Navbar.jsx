@@ -41,9 +41,6 @@ export default function Navbar() {
               <Link to="/login" className="text-blue-600 hover:underline">
                 Login
               </Link>
-              <Link to="/register" className="text-blue-600 hover:underline">
-                Registro
-              </Link>
             </>
           )}
         </div>
