@@ -39,7 +39,9 @@ export default function App() {
                   element={
                     <>
                       <Container className="text-center py-10">
-                        <h1 className="text-4xl font-bold">Proyectos</h1>
+                      <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient">
+                        Proyectos
+                      </h1>
                         <p className="text-gray-600 mt-2">
                           Algunos proyectos en los que participamos y trabajamos junto a nuestros clientes.
                         </p>

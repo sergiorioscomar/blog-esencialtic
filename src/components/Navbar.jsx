@@ -7,8 +7,11 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow mb-6">
       <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold">
-          📝 Porfolio
+        <Link
+            to="/"
+          className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient"
+        >
+          Porfolio
         </Link>
 
         <div className="flex gap-4 items-center">
