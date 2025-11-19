@@ -1,26 +1,43 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useMutation } from "@tanstack/react-query";
-import { login as loginRequest } from "../api/auth";
+import { useLogin } from "../hooks/useAuthMutations";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
-  const { login } = useAuth();
   const navigate = useNavigate();
-
   const [form, setForm] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
 
-  const mutation = useMutation({
-    mutationFn: loginRequest,
-    onSuccess: (res) => {
-      login(res.data.token, res.data.user);
-      navigate("/admin");
-    },
-  });
+  const mutation = useLogin();
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!form.email.trim()) {
+      newErrors.email = "El email es requerido";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "El email no es válido";
+    }
+    
+    if (!form.password) {
+      newErrors.password = "La contraseña es requerida";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate(form);
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    mutation.mutate(form, {
+      onSuccess: () => {
+        navigate("/admin");
+      },
+    });
   };
 
   return (
@@ -34,26 +51,37 @@ export default function Login() {
         <input
           type="email"
           placeholder="Email"
-          className="border rounded-lg px-3 py-2 w-full"
+          value={form.email}
+          className={`border rounded-lg px-3 py-2 w-full ${errors.email ? "border-red-500" : ""}`}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
+        {errors.email && (
+          <p className="text-red-600 text-sm">{errors.email}</p>
+        )}
 
         <input
           type="password"
           placeholder="Password"
-          className="border rounded-lg px-3 py-2 w-full"
+          value={form.password}
+          className={`border rounded-lg px-3 py-2 w-full ${errors.password ? "border-red-500" : ""}`}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
+        {errors.password && (
+          <p className="text-red-600 text-sm">{errors.password}</p>
+        )}
 
         <button
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded-lg transition"
+          disabled={mutation.isPending}
         >
-          Ingresar
+          {mutation.isPending ? "Ingresando..." : "Ingresar"}
         </button>
 
         {mutation.isError && (
-          <p className="text-red-600 text-center">Credenciales incorrectas</p>
+          <p className="text-red-600 text-center">
+            {mutation.error?.response?.data?.message || "Credenciales incorrectas"}
+          </p>
         )}
 
         <p className="text-center text-sm text-gray-600">

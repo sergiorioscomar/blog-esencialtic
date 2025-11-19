@@ -1,49 +1,55 @@
 // src/hooks/usePosts.js
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../api/api";
+import { getPosts, getPost, createPost, updatePost, deletePost } from "../api/posts";
 
+// Hook para obtener todos los posts
 export function usePosts() {
-  return useQuery(["posts"], async () => {
-    const res = await api.get("/api/posts");
-    return res.data;
-  }, {
-    staleTime: 1000 * 30,
+  return useQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+    staleTime: 1000 * 30, // Cache por 30 segundos
   });
 }
 
+// Hook para obtener un post específico
 export function usePost(id) {
-  return useQuery(["post", id], async () => {
-    const res = await api.get(`/api/posts/${id}`);
-    return res.data;
-  }, {
-    enabled: !!id,
+  return useQuery({
+    queryKey: ["post", id],
+    queryFn: () => getPost(id),
+    enabled: !!id, // Solo ejecuta si hay un id
   });
 }
 
+// Hook para crear un post
 export function useCreatePost() {
-  const qc = useQueryClient();
-  return useMutation(
-    async (payload) => {
-      const res = await api.post("/api/posts", payload);
-      return res.data;
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] }); // Refresca el listado
     },
-    {
-      onSuccess: () => {
-        qc.invalidateQueries(["posts"]); // refresca listado
-      },
-    }
-  );
+  });
 }
 
-export function useDeletePost() {
-  const qc = useQueryClient();
-  return useMutation(
-    async (id) => {
-      const res = await api.delete(`/api/posts/${id}`);
-      return res.data;
+// Hook para actualizar un post
+export function useUpdatePost() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updatePost,
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["post", variables.id] });
     },
-    {
-      onSuccess: () => qc.invalidateQueries(["posts"]),
-    }
-  );
+  });
+}
+
+// Hook para eliminar un post
+export function useDeletePost() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 }

@@ -23,11 +23,11 @@ export default function Navbar() {
                   Admin
                 </Link>
               )}
-
+              {/* Solo superusuario id=2 */}
               {user?.id === 2 && (
-                <a href="/admin/users" className="ml-4 text-blue-600">
+                <Link to="/admin/users" className="ml-4 text-blue-600 hover:underline">
                   Users
-                </a>
+                </Link>
               )}
               <button
                 onClick={logout}

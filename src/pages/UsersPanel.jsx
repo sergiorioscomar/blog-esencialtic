@@ -1,10 +1,10 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../api/api";
+import { useUsers, useUpdateUserRole } from "../hooks/useUsers";
 import { useAuth } from "../context/AuthContext";
 
 export default function UsersPanel() {
   const { user } = useAuth();
-  const queryClient = useQueryClient();
+  const { data: users, isLoading } = useUsers();
+  const updateRole = useUpdateUserRole();
 
   // Solo superusuario id=2
   if (user?.id !== 2) {
@@ -15,26 +15,15 @@ export default function UsersPanel() {
     );
   }
 
-  // Obtener usuarios
-  const { data: users, isLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await api.get("/users");
-      return res.data;
-    },
-  });
-
-  // Mutación para cambiarles el rol
-  const mutation = useMutation({
-    mutationFn: async ({ id, role }) => {
-      return api.post(`/users/${id}/role`, { role });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
-    },
-  });
-
-  if (isLoading) return <p className="p-6">Cargando usuarios...</p>;
+  if (isLoading) return <p className="text-center py-10">Cargando usuarios...</p>;
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto bg-white shadow p-6 rounded">
+        <h1 className="text-xl font-bold mb-4">Administrar Roles de Usuarios</h1>
+        <p className="text-center text-gray-500">No hay usuarios disponibles.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto bg-white shadow p-6 rounded">
@@ -62,7 +51,7 @@ export default function UsersPanel() {
               <td className="p-2 border">
                 <button
                   onClick={() =>
-                    mutation.mutate({
+                    updateRole.mutate({
                       id: u.id,
                       role: u.role === "admin" ? "user" : "admin",
                     })

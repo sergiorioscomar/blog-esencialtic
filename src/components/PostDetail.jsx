@@ -1,20 +1,13 @@
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getPosts } from "../api/posts";
+import { usePost } from "../hooks/usePosts";
 
 export default function PostDetail() {
   const { id } = useParams();
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
-  });
-
-  const post = data?.find((p) => p.id == id);
+  const { data: post, isLoading, error } = usePost(id);
 
   if (isLoading) return <p className="text-center text-gray-500 mt-6">Cargando...</p>;
-  if (error) return <p className="text-center text-red-500 mt-6">Error cargando post.</p>;
-  if (!post) return <p className="text-center text-gray-500 mt-6">Post no encontrado.</p>;
+  if (error) return <p className="text-center text-red-500 mt-6">Error cargando publicaciones.</p>;
+  if (!post) return <p className="text-center text-gray-500 mt-6">Publicaciones no encontradas.</p>;
 
   const parseDate = (d) => {
     if (!d) return "";

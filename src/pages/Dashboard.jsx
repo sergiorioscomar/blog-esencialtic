@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import api from "../api/api";
+import { usePosts, useDeletePost } from "../hooks/usePosts";
 
 export default function Dashboard() {
-  const { role, token, logout } = useAuth();
+  const { role } = useAuth();
+  const { data: posts, isLoading } = usePosts();
+  const deletePost = useDeletePost();
 
-  // lista de posts (del admin)
-  const { data: posts } = useQuery({
-    queryKey: ["admin-posts"],
-    queryFn: async () => {
-      const res = await api.get("/posts");
-      return res.data;
-    },
-  });
+  if (isLoading) return <p className="text-center py-10">Cargando...</p>;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
@@ -41,30 +35,40 @@ export default function Dashboard() {
         </thead>
 
         <tbody>
-          {posts?.map((post) => (
-            <tr key={post.id} className="border-b">
-              <td className="p-2">{post.titulo}</td>
+          {posts && Array.isArray(posts) && posts.length > 0 ? (
+            posts.map((post) => (
+              <tr key={post.id} className="border-b">
+                <td className="p-2">{post.titulo}</td>
 
-              <td className="p-2 flex justify-evenly gap-4">
-                
-                {role === "admin" && (
-                  <>
-                    <Link to={`/admin/edit/${post.id}`} className="text-blue-600">
-                      Editar
-                    </Link>
+                <td className="p-2 flex justify-evenly gap-4">
+                  {role === "admin" && (
+                    <>
+                      <Link to={`/admin/edit/${post.id}`} className="text-blue-600">
+                        Editar
+                      </Link>
 
-                    <button
-                      className="text-red-600"
-                      onClick={() => console.log("delete", post.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </>
-                )}
-
+                      <button
+                        className="text-red-600"
+                        onClick={() => {
+                          if (confirm("¿Estás seguro de eliminar este post?")) {
+                            deletePost.mutate(post.id);
+                          }
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2" className="p-4 text-center text-gray-500">
+                No hay publicaciones disponibles.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

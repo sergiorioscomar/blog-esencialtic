@@ -5,9 +5,16 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [user, setUser] = useState(() => {
+    try {
+      const userData = localStorage.getItem("user");
+      return userData ? JSON.parse(userData) : null;
+    } catch (error) {
+      console.error("Error parsing user data from localStorage:", error);
+      localStorage.removeItem("user");
+      return null;
+    }
+  });
 
   useEffect(() => {
     // Si hay token y NO hay user cargado, pedimos al backend los datos

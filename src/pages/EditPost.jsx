@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
-import { getPost, updatePost } from "../api/posts";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { usePost, useUpdatePost } from "../hooks/usePosts";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditPost() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["post", id],
-    queryFn: () => getPost(id),
-  });
+  const { data, isLoading } = usePost(id);
 
   const [form, setForm] = useState({
     titulo: "",
@@ -26,16 +22,43 @@ export default function EditPost() {
     }
   }, [data]);
 
-  const mutation = useMutation({
-    mutationFn: updatePost,
-    onSuccess: () => {
-      navigate("/admin");
-    },
-  });
+  const mutation = useUpdatePost();
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!form.titulo.trim()) {
+      newErrors.titulo = "El título es requerido";
+    }
+    
+    if (!form.descripcion.trim()) {
+      newErrors.descripcion = "La descripción es requerida";
+    }
+    
+    if (!form.content.trim()) {
+      newErrors.content = "El contenido es requerido";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const submit = (e) => {
     e.preventDefault();
-    mutation.mutate({ id, data: form });
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    mutation.mutate(
+      { id, data: form },
+      {
+        onSuccess: () => {
+          navigate("/admin");
+        },
+      }
+    );
   };
 
   if (isLoading) return <p>Cargando...</p>;
@@ -50,36 +73,61 @@ export default function EditPost() {
 
         <input
           placeholder="Título"
-          className="border rounded-lg px-3 py-2"
+          value={form.titulo}
+          className={`border rounded-lg px-3 py-2 ${errors.titulo ? "border-red-500" : ""}`}
           onChange={(e) => setForm({ ...form, titulo: e.target.value })}
         />
+        {errors.titulo && (
+          <p className="text-red-600 text-sm">{errors.titulo}</p>
+        )}
 
         <input
           placeholder="Imagen (URL)"
+          value={form.imagen}
+          type="url"
           className="border rounded-lg px-3 py-2"
           onChange={(e) => setForm({ ...form, imagen: e.target.value })}
         />
 
         <input
           placeholder="Categoría"
+          value={form.categoria}
           className="border rounded-lg px-3 py-2"
           onChange={(e) => setForm({ ...form, categoria: e.target.value })}
         />
 
         <textarea
           placeholder="Descripción"
-          className="border rounded-lg px-3 py-2 h-24"
+          value={form.descripcion}
+          className={`border rounded-lg px-3 py-2 h-24 ${errors.descripcion ? "border-red-500" : ""}`}
           onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
         />
+        {errors.descripcion && (
+          <p className="text-red-600 text-sm">{errors.descripcion}</p>
+        )}
 
         <textarea
           placeholder="Contenido"
-          className="border rounded-lg px-3 py-2 h-40"
+          value={form.content}
+          className={`border rounded-lg px-3 py-2 h-40 ${errors.content ? "border-red-500" : ""}`}
           onChange={(e) => setForm({ ...form, content: e.target.value })}
         />
+        {errors.content && (
+          <p className="text-red-600 text-sm">{errors.content}</p>
+        )}
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
-         Guardar cambios
+        {mutation.isError && (
+          <p className="text-red-600 text-center">
+            {mutation.error?.response?.data?.message || "Error al actualizar el post. Intenta nuevamente."}
+          </p>
+        )}
+
+        <button 
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? "Guardando..." : "Guardar cambios"}
         </button>
       </form>
     </div>
