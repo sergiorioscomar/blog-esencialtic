@@ -1,49 +1,48 @@
-import styles from '../App.module.css';
-
 export default function PostCard({ post }) {
-  // Formateo fecha
   const parseDate = (d) => {
-    if (!d) return '';
-    const iso = d.replace(' ', 'T');
+    if (!d) return "";
+    const iso = d.replace(" ", "T");
     const dateObj = new Date(iso);
     if (Number.isNaN(dateObj.getTime())) return d;
-    return dateObj.toLocaleDateString('es-AR', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
+    return dateObj.toLocaleDateString("es-AR", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
     });
   };
 
   return (
-    <article className={styles.card} aria-labelledby={`post-title-${post.id}`}>
-      <a href={`#post-${post.id}`} className={styles.cardImageWrap}>
+    <article className="rounded-xl bg-white shadow-lg overflow-hidden hover:shadow-xl transition">
+      
+      <a href={`/post/${post.id}`}>
         <img
-          className={styles.cardImage}
           src={post.imagen}
           alt={post.titulo}
-          onError={(e) => (e.target.src = '/media/media/posts/default.png')}
+          onError={(e) => (e.target.src = "/posts/default.png")}
+          className="w-full h-48 object-cover"
         />
       </a>
 
-      <div className={styles.cardBody}>
-        <h3 id={`post-title-${post.id}`} className={styles.cardTitle}>
-          {post.titulo}
-        </h3>
+      <div className="p-4 flex flex-col gap-3">
+        
+        <h3 className="text-xl font-semibold">{post.titulo}</h3>
 
-        <p className={styles.cardDesc}>{post.descripcion}</p>
+        <p className="text-gray-600">{post.descripcion}</p>
 
-        <div className={styles.cardMeta}>
-          <span>{post.autor}</span>
-          <span>•</span>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <span>{post.autor}</span> •
           <span>{parseDate(post.fecha_publicacion)}</span>
         </div>
 
-        <div className={styles.cardFooter}>
-          <span className={styles.category}>
-            {post.categoria ? post.categoria : 'Sin categoría'} {/* Condicional Ternario */ }
+        <div className="flex justify-between items-center mt-2">
+          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
+            {post.categoria || "Sin categoría"}
           </span>
 
-          <a className={styles.readMore} href={`${post.url}`}>
+          <a
+            className="text-blue-600 hover:underline text-sm font-medium"
+            href={`/post/${post.id}`}
+          >
             Leer
           </a>
         </div>

@@ -1,0 +1,33 @@
+export const POSTS = [];
+
+export async function getPosts() {
+  try {
+    const res = await fetch("https://proyectos.esencialtic.com.ar/api/posts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      console.warn("Error en la API:", res.status);
+      return POSTS;
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      console.warn("La API devolvió algo que no es array");
+      return POSTS;
+    }
+
+    POSTS.length = 0;
+    POSTS.push(...data);
+
+    return POSTS;
+
+  } catch (err) {
+    console.error("Error al conectar con la API:", err);
+    return POSTS;
+  }
+}

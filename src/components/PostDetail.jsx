@@ -1,52 +1,61 @@
-import Container from './Container';
-import styles from '../App.module.css';
-import { POSTS } from '../data/posts';
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getPosts } from "../api/posts";
 
 export default function PostDetail() {
-  const hash = typeof window !== 'undefined' ? window.location.hash : '';
-  const id = (hash || '').replace('#post-', '');
-  const post = POSTS.find((p) => p.id === id);
+  const { id } = useParams();
 
-  if (!post) return null;
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+
+  const post = data?.find((p) => p.id == id);
+
+  if (isLoading) return <p className="text-center text-gray-500 mt-6">Cargando...</p>;
+  if (error) return <p className="text-center text-red-500 mt-6">Error cargando post.</p>;
+  if (!post) return <p className="text-center text-gray-500 mt-6">Post no encontrado.</p>;
 
   const parseDate = (d) => {
-    if (!d) return '';
-    const iso = d.replace(' ', 'T');
+    if (!d) return "";
+    const iso = d.replace(" ", "T");
     const dateObj = new Date(iso);
     if (Number.isNaN(dateObj.getTime())) return d;
-    return dateObj.toLocaleDateString('es-AR', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
+    return dateObj.toLocaleDateString("es-AR", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
     });
   };
 
   return (
-    <div className={styles.detail}>
-      <Container>
-        <a className={styles.backLink} href="#">
-          ← Volver
-        </a>
+    <div className="max-w-3xl mx-auto px-4 py-10">
+      <Link
+        to="/"
+        className="text-blue-600 hover:underline block mb-4"
+      >
+        ← Volver
+      </Link>
 
-        <h2>{post.titulo}</h2>
+      <h1 className="text-4xl font-bold mb-4">{post.titulo}</h1>
 
-        <p className={styles.detailMeta}>
-          {post.autor} • {parseDate(post.fecha_publicacion)} •{' '}
-          {post.categoria ? post.categoria : 'Sin categoría'}
-        </p>
+      <p className="text-gray-500 mb-6">
+        {post.autor} • {parseDate(post.fecha_publicacion)} •{" "}
+        {post.categoria || "Sin categoría"}
+      </p>
 
+      {post.imagen && (
         <img
-          className={styles.detailImage}
           src={post.imagen}
           alt={post.titulo}
-          onError={(e) => (e.target.src = '/media/media/posts/default.png')}
+          onError={(e) => (e.target.src = "/img/posts/default.png")}
+          className="rounded-lg shadow mb-6 w-full object-cover"
         />
+      )}
 
-        {/* Si no tenés campo "content" en tus posts, mostramos "descripcion" */}
-        <div className={styles.detailContent}>
-          {post.content ? post.content : post.descripcion}
-        </div>
-      </Container>
+      <div className="prose prose-lg max-w-none">
+        {post.content || post.descripcion}
+      </div>
     </div>
   );
 }

@@ -1,11 +1,19 @@
-import PostCard from './PostCard';
-import styles from '../App.module.css';
+import { useQuery } from "@tanstack/react-query";
+import { getPosts } from "../api/posts";
+import PostCard from "./PostCard";
 
-export default function PostsList({ posts }) {
+export default function PostsList() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+
+  if (isLoading) return <p className="text-center py-10">Cargando...</p>;
+
   return (
-    <div className={styles.grid}>
-      {posts.map(post => (
-        <PostCard post={post} key={post.id} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {data.map((post) => (
+        <PostCard key={post.id} post={post} />
       ))}
     </div>
   );
