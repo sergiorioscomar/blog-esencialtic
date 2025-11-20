@@ -55,7 +55,7 @@ export default function EditPost() {
     );
   };
 
-  if (isLoading) return <p>Cargando...</p>;
+  if (isLoading) return <p className="text-center py-10">Cargando...</p>;
 
   return (
     <div className="flex justify-center mt-10">
