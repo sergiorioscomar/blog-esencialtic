@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 
+import Carousel from "./components/Carousel";
 import Navbar from "./components/Navbar";
 import Container from "./components/Container";
 import PostsList from "./components/PostsList";
@@ -31,12 +32,28 @@ export default function App() {
             <Navbar />
 
             <main>
+
+
               <Routes>
 
                 {/* HOME */}
                 <Route
                   path="/"
                   element={
+                  <>
+
+                      <Container className="text-center">
+                        <div>
+                          <Carousel
+                            images={[
+                              { src: "/carousel/slide1.jpg", link: "/post/1" },
+                              { src: "/carousel/slide2.jpg", link: "/post/2" },
+                              { src: "/carousel/slide3.jpg", link: "/post/3" },
+                            ]}
+                          />
+                        </div>
+                      </Container>
+
                     <>
                       <Container className="text-center py-10">
                       <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient">
@@ -50,6 +67,7 @@ export default function App() {
                       <Container>
                         <PostsList />
                       </Container>
+                    </>
                     </>
                   }
                 />

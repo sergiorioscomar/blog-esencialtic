@@ -11,64 +11,70 @@ export default function Login() {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!form.email.trim()) {
       newErrors.email = "El email es requerido";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = "El email no es válido";
     }
-    
+
     if (!form.password) {
       newErrors.password = "La contraseña es requerida";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+
+    if (!validateForm()) return;
+
     mutation.mutate(form, {
-      onSuccess: () => {
-        navigate("/admin");
-      },
+      onSuccess: () => navigate("/admin"),
     });
   };
 
   return (
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center items-center min-h-[80vh] px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white shadow-lg p-8 rounded-xl flex flex-col gap-4"
+        className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center">Iniciar Sesión</h2>
+        <h2 className="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent animate-gradient">
+          Iniciar Sesión
+        </h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.email ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        {errors.email && (
-          <p className="text-red-600 text-sm">{errors.email}</p>
-        )}
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.email ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+          {errors.email && (
+            <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+          )}
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.password ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        {errors.password && (
-          <p className="text-red-600 text-sm">{errors.password}</p>
-        )}
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.password ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+          {errors.password && (
+            <p className="text-red-600 text-sm mt-1">{errors.password}</p>
+          )}
+        </div>
 
         <button
           type="submit"
@@ -80,7 +86,8 @@ export default function Login() {
 
         {mutation.isError && (
           <p className="text-red-600 text-center">
-            {mutation.error?.response?.data?.message || "Credenciales incorrectas"}
+            {mutation.error?.response?.data?.message ||
+              "Credenciales incorrectas"}
           </p>
         )}
 

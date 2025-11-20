@@ -9,8 +9,7 @@ export default function CreatePost() {
     titulo: "",
     descripcion: "",
     imagen: "",
-    categoria: "",
-    content: "",
+    categoria: ""
   });
   const [errors, setErrors] = useState({});
 
@@ -26,10 +25,7 @@ export default function CreatePost() {
     if (!form.descripcion.trim()) {
       newErrors.descripcion = "La descripción es requerida";
     }
-    
-    if (!form.content.trim()) {
-      newErrors.content = "El contenido es requerido";
-    }
+
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -53,7 +49,7 @@ export default function CreatePost() {
         onSubmit={submit}
         className="w-full max-w-2xl bg-white shadow-lg p-8 rounded-xl flex flex-col gap-4"
       >
-        <h2 className="text-2xl font-bold mb-2">Crear Post</h2>
+        <h2 className="text-2xl font-bold mb-2">Crear Proyecto</h2>
 
         <input
           placeholder="Título"
@@ -89,17 +85,7 @@ export default function CreatePost() {
         {errors.descripcion && (
           <p className="text-red-600 text-sm">{errors.descripcion}</p>
         )}
-
-        <textarea
-          placeholder="Contenido"
-          value={form.content}
-          className={`border rounded-lg px-3 py-2 h-40 ${errors.content ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, content: e.target.value })}
-        />
-        {errors.content && (
-          <p className="text-red-600 text-sm">{errors.content}</p>
-        )}
-
+        
         {mutation.isError && (
           <p className="text-red-600 text-center">
             {mutation.error?.response?.data?.message || "Error al crear el post. Intenta nuevamente."}

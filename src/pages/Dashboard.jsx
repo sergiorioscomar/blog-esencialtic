@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
-      <h2 className="text-2xl font-bold mb-6">Panel Admin</h2>
+      <h2 className="text-4xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient">Panel Admin</h2>
 
       <div className="flex gap-4 mb-6">
         {role === "admin" && (

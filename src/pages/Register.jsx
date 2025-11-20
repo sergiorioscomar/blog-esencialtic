@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ 
-    name: "", 
-    email: "", 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
     password: "",
-    password_confirmation: ""
+    password_confirmation: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -16,111 +16,137 @@ export default function Register() {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!form.name.trim()) {
       newErrors.name = "El nombre es requerido";
     }
-    
+
     if (!form.email.trim()) {
       newErrors.email = "El email es requerido";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = "El email no es válido";
     }
-    
+
     if (!form.password) {
       newErrors.password = "La contraseña es requerida";
     } else if (form.password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+      newErrors.password = "Debe tener al menos 6 caracteres";
     }
-    
+
     if (form.password !== form.password_confirmation) {
       newErrors.password_confirmation = "Las contraseñas no coinciden";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const submit = (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+
+    if (!validateForm()) return;
+
     mutation.mutate(form, {
-      onSuccess: () => {
-        navigate("/login");
-      },
+      onSuccess: () => navigate("/login"),
     });
   };
 
   return (
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center items-center min-h-[80vh] px-4">
       <form
         onSubmit={submit}
-        className="w-full max-w-md bg-white shadow-lg p-8 rounded-xl flex flex-col gap-4"
+        className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center">Crear cuenta</h2>
+        <h2 className="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent animate-gradient">
+          Crear cuenta
+        </h2>
 
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={form.name}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.name ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-        {errors.name && (
-          <p className="text-red-600 text-sm">{errors.name}</p>
-        )}
+        {/* Nombre */}
+        <div>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={form.name}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.name ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+          {errors.name && (
+            <p className="text-red-600 text-sm mt-1">{errors.name}</p>
+          )}
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.email ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        {errors.email && (
-          <p className="text-red-600 text-sm">{errors.email}</p>
-        )}
+        {/* Email */}
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.email ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+          {errors.email && (
+            <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+          )}
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.password ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        {errors.password && (
-          <p className="text-red-600 text-sm">{errors.password}</p>
-        )}
+        {/* Password */}
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.password ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+          {errors.password && (
+            <p className="text-red-600 text-sm mt-1">{errors.password}</p>
+          )}
+        </div>
 
-        <input
-          type="password"
-          placeholder="Confirmar Password"
-          value={form.password_confirmation}
-          className={`border rounded-lg px-3 py-2 w-full ${errors.password_confirmation ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })}
-        />
-        {errors.password_confirmation && (
-          <p className="text-red-600 text-sm">{errors.password_confirmation}</p>
-        )}
+        {/* Confirmación */}
+        <div>
+          <input
+            type="password"
+            placeholder="Confirmar Password"
+            value={form.password_confirmation}
+            className={`border rounded-lg px-3 py-2 w-full ${
+              errors.password_confirmation ? "border-red-500" : "border-gray-300"
+            }`}
+            onChange={(e) =>
+              setForm({ ...form, password_confirmation: e.target.value })
+            }
+          />
+          {errors.password_confirmation && (
+            <p className="text-red-600 text-sm mt-1">
+              {errors.password_confirmation}
+            </p>
+          )}
+        </div>
 
-        <button 
+        {/* Botón */}
+        <button
           type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
+          className="bg-green-600 hover:bg-green-700 text-white w-full py-2 rounded-lg transition"
           disabled={mutation.isPending}
         >
           {mutation.isPending ? "Registrando..." : "Registrarse"}
         </button>
 
+        {/* Error servidor */}
         {mutation.isError && (
           <p className="text-red-600 text-center">
-            {mutation.error?.response?.data?.message || "Error al registrar. Intenta nuevamente."}
+            {mutation.error?.response?.data?.message ||
+              "Error al registrar. Intenta nuevamente."}
           </p>
         )}
 
+        {/* Link a login */}
         <p className="text-center text-sm text-gray-600">
           ¿Ya tenés cuenta?{" "}
           <Link to="/login" className="text-blue-600 hover:underline">
