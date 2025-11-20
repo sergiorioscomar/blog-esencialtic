@@ -29,3 +29,6 @@ Aparte de dejar funcionando un porfolio bonito
 
 # Fronted: React + Vite + tailwind
 ## Backend: Api Laravel + sanctum
+
+### Api Backend - api proyectos
+![Vista previa del blog](./src/assets/api-proyectos-esencialtic.png)
