@@ -25,7 +25,7 @@ export default function Carousel({ images = [], autoPlay = true, interval = 4000
         }}
       >
         {images.map((img, i) => (
-            <div key={i} className="relative w-full min-w-full h-48 md:h-72">
+            <div key={i} className="relative w-full min-w-full h-48 md:h-96">
 
                 {/* Imagen */}
                 <img

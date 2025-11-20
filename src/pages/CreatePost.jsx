@@ -9,7 +9,8 @@ export default function CreatePost() {
     titulo: "",
     descripcion: "",
     imagen: "",
-    categoria: ""
+    categoria: "",
+    url: ""
   });
   const [errors, setErrors] = useState({});
 
@@ -33,12 +34,20 @@ export default function CreatePost() {
 
   const submit = (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
+
+    const user = JSON.parse(localStorage.getItem("user"));
     
-    mutation.mutate(form, {
+    const payload = {
+      ...form,
+      autor: user?.name || "Desconocido",
+      fecha_publicacion: new Date().toISOString().split("T")[0] // yyyy-mm-dd
+    };
+
+    mutation.mutate(payload, {
       onSuccess: () => navigate("/admin"),
     });
   };
@@ -61,6 +70,16 @@ export default function CreatePost() {
           <p className="text-red-600 text-sm">{errors.titulo}</p>
         )}
 
+        <textarea
+          placeholder="Descripción"
+          value={form.descripcion}
+          className={`border rounded-lg px-3 py-2 h-24 ${errors.descripcion ? "border-red-500" : ""}`}
+          onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+        />
+        {errors.descripcion && (
+          <p className="text-red-600 text-sm">{errors.descripcion}</p>
+        )}
+
         <input
           placeholder="Imagen (URL)"
           value={form.imagen}
@@ -76,19 +95,17 @@ export default function CreatePost() {
           onChange={(e) => setForm({ ...form, categoria: e.target.value })}
         />
 
-        <textarea
-          placeholder="Descripción"
-          value={form.descripcion}
-          className={`border rounded-lg px-3 py-2 h-24 ${errors.descripcion ? "border-red-500" : ""}`}
-          onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+        <input
+          placeholder="URL de Github"
+          value={form.url}
+          type="url"
+          className="border rounded-lg px-3 py-2"
+          onChange={(e) => setForm({ ...form, url: e.target.value })}
         />
-        {errors.descripcion && (
-          <p className="text-red-600 text-sm">{errors.descripcion}</p>
-        )}
-        
+
         {mutation.isError && (
           <p className="text-red-600 text-center">
-            {mutation.error?.response?.data?.message || "Error al crear el post. Intenta nuevamente."}
+            {mutation.error?.response?.data?.message || "Error al crear el proyecto. Intenta nuevamente."}
           </p>
         )}
 
