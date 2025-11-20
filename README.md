@@ -1,9 +1,9 @@
 # React + Vite
-Instalar dependencias
+### Instalar dependencias
 - npm i
-Testing
+### Testing
 - npm run dev
-Optimizar tu código para producción
+### Optimizar tu código para producción
 - npm run build
 
 # blog-esencialtic porfolio
