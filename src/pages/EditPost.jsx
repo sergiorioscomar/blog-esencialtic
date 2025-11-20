@@ -42,22 +42,17 @@ export default function EditPost() {
 
   const submit = (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    
-    const payload = {
-      ...form,
-      autor: user?.name || "Desconocido",
-      fecha_publicacion: new Date().toISOString().split("T")[0] // yyyy-mm-dd
-    };
-
-    mutation.mutate(payload, {
-      onSuccess: () => navigate("/admin"),
-    });
+  
+    if (!validateForm()) return;
+  
+    const payload = { ...form };
+  
+    mutation.mutate(
+      { id, data: payload },
+      {
+        onSuccess: () => navigate("/admin"),
+      }
+    );
   };
 
   if (isLoading) return <p>Cargando...</p>;
