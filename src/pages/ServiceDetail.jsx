@@ -58,7 +58,7 @@ export default function ServiceDetail() {
       {category && (
         <p className="text-gray-500 mt-2">{category}</p>
       )}
-
+{/*
       {displayPrice !== undefined &&
         displayPrice !== null &&
         displayPrice !== "" && (
@@ -66,7 +66,7 @@ export default function ServiceDetail() {
           {`$${displayPrice}`}
         </p>
       )}
-
+*/}
       <img
         src={image}
         alt={title}

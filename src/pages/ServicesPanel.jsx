@@ -89,13 +89,14 @@ export default function ServicesPanel() {
                     </h3>
                   </div>
                   <p className="text-gray-600 flex-1">{description}</p>
+                  {/*
                   {displayPrice !== undefined &&
                     displayPrice !== null &&
                     displayPrice !== "" && (
                     <p className="font-semibold text-emerald-600 text-lg">
                       {`Desde $${displayPrice}`}
                     </p>
-                  )}
+                  )} */}
 
                   <div className="flex items-center gap-4 mt-2">
                     <Link
