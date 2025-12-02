@@ -58,11 +58,24 @@ export default function ServicesPanel() {
             const category = service.category ?? service.categoria;
             const description = service.description ?? service.descripcion ?? "";
             const displayPrice = service.price ?? service.precio;
+            const image =
+              service.image ??
+              service.imagen ??
+              "/img/posts/default.png";
             return (
               <article
                 key={service.id}
                 className="bg-white rounded-xl shadow p-5 flex flex-col gap-3"
               >
+                <img
+                  src={image}
+                  alt={title}
+                  className="w-full h-40 object-cover rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/img/posts/default.png";
+                  }}
+                />
                 <div>
                   <h3 className="text-xl font-semibold">
                     {title}

@@ -37,7 +37,10 @@ export default function ServiceDetail() {
 
   const title = service.title ?? service.titulo ?? service.nombre;
   const category = service.category ?? service.categoria;
-  const image = service.image ?? service.imagen;
+  const image =
+    service.image ??
+    service.imagen ??
+    "/img/posts/default.png";
   const description = service.description ?? service.descripcion ?? "";
   const displayPrice = service.price ?? service.precio;
 
@@ -63,13 +66,15 @@ export default function ServiceDetail() {
         </p>
       )}
 
-      {image && (
-        <img
-          src={image}
-          alt={title}
-          className="mt-6 rounded-lg"
-        />
-      )}
+      <img
+        src={image}
+        alt={title}
+        className="mt-6 rounded-lg"
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = "/img/posts/default.png";
+        }}
+      />
 
       <p className="mt-6 text-lg text-gray-700">{description}</p>
 

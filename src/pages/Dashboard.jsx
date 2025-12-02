@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { usePosts, useDeletePost } from "../hooks/usePosts";
 import { useServices, useDeleteService } from "../hooks/useServices";
+import { useServiceHires } from "../hooks/useServiceHires";
 
 export default function Dashboard() {
   const { role } = useAuth();
   const { data: posts, isLoading: isLoadingPosts } = usePosts();
   const { data: services, isLoading: isLoadingServices } = useServices();
+  const { data: hires, isLoading: isLoadingHires } = useServiceHires();
   const deletePost = useDeletePost();
   const deleteService = useDeleteService();
 
@@ -84,7 +86,7 @@ export default function Dashboard() {
         )}
       </section>
 
-      <section>
+      <section className="mb-10">
         <h3 className="text-2xl font-semibold text-gray-800 mb-3">Servicios</h3>
         {isLoadingServices ? (
           <p className="text-center py-6 text-gray-500">Cargando servicios...</p>
@@ -145,6 +147,60 @@ export default function Dashboard() {
               )}
             </tbody>
           </table>
+        )}
+      </section>
+
+      <section>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-3">Contrataciones de servicios</h3>
+        {isLoadingHires ? (
+          <p className="text-center py-6 text-gray-500">Cargando contrataciones...</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[32rem]">
+              <thead>
+                <tr className="font-semibold text-gray-600">
+                  <th className="text-left p-2">Servicio</th>
+                  <th className="text-left p-2 hidden sm:table-cell">Usuario</th>
+                  <th className="text-left p-2 hidden md:table-cell">Email</th>
+                  <th className="text-left p-2">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hires && Array.isArray(hires) && hires.length > 0 ? (
+                  hires.map((hire) => {
+                    const serviceTitle = hire.service_title ?? hire.service?.title ?? hire.service?.nombre ?? "Servicio";
+                    const userName = hire.user_name ?? hire.user?.name ?? "Usuario";
+                    const userEmail = hire.user_email ?? hire.user?.email ?? "Sin email";
+                    const hiredDate = hire.hired_at ?? hire.created_at ?? hire.fecha ?? "";
+                    return (
+                      <tr key={`${hire.id ?? hire.hire_id ?? `${serviceTitle}-${userEmail}`}`} className="border-b">
+                        <td className="p-2">{serviceTitle}</td>
+                        <td className="p-2 hidden sm:table-cell">{userName}</td>
+                        <td className="p-2 hidden md:table-cell">{userEmail}</td>
+                        <td className="p-2">
+                          {hiredDate
+                            ? new Date(hiredDate).toLocaleString("es-AR", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })
+                            : "—"}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="p-4 text-center text-gray-500">
+                      No hay contrataciones registradas.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
     </div>
