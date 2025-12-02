@@ -163,15 +163,17 @@ export default function Profile() {
           </label>
 
           {profileForm.avatar && (
-            <img
-              src={profileForm.avatar}
-              alt="Avatar"
-              className="w-24 h-24 rounded-full object-cover"
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.currentTarget.src = "/img/posts/default.png";
-              }}
-            />
+            <div className="flex justify-center">
+              <img
+                src={profileForm.avatar}
+                alt="Avatar"
+                className="w-24 h-24 rounded-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/img/posts/default.png";
+                }}
+              />
+            </div>
           )}
 
           <button
