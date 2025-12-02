@@ -5,7 +5,7 @@ const EMPTY_FORM = {
   description: "",
   price: "",
   category: "",
-  image: "",
+  image_url: "",
 };
 
 const mapInitialValues = (values = {}) => ({
@@ -13,7 +13,7 @@ const mapInitialValues = (values = {}) => ({
   description: values.description ?? values.descripcion ?? "",
   price: values.price ?? values.precio ?? "",
   category: values.category ?? values.categoria ?? "",
-  image: values.image ?? values.imagen ?? "",
+  image_url: values.image_url ?? values.image ?? values.imagen ?? "",
 });
 
 export default function ServiceForm({
@@ -64,7 +64,13 @@ export default function ServiceForm({
       description: form.description,
       price: Number(form.price),
       category: form.category,
-      image: form.image,
+      image_url: form.image_url,
+      image: form.image_url,
+      imagen: form.image_url,
+      titulo: form.title,
+      descripcion: form.description,
+      categoria: form.category,
+      precio: Number(form.price),
     });
   };
 
@@ -113,9 +119,9 @@ export default function ServiceForm({
 
       <input
         placeholder="Imagen (URL)"
-        value={form.image}
+        value={form.image_url}
         className="border rounded-lg px-3 py-2"
-        onChange={(e) => handleChange("image", e.target.value)}
+        onChange={(e) => handleChange("image_url", e.target.value)}
       />
 
       {serverError && (

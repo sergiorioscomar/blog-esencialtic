@@ -59,6 +59,7 @@ export default function ServicesPanel() {
             const description = service.description ?? service.descripcion ?? "";
             const displayPrice = service.price ?? service.precio;
             const image =
+              service.image_url ??
               service.image ??
               service.imagen ??
               "/img/posts/default.png";

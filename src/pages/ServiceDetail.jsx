@@ -38,6 +38,7 @@ export default function ServiceDetail() {
   const title = service.title ?? service.titulo ?? service.nombre;
   const category = service.category ?? service.categoria;
   const image =
+    service.image_url ??
     service.image ??
     service.imagen ??
     "/img/posts/default.png";
