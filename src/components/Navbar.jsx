@@ -30,6 +30,15 @@ export default function Navbar() {
           {token ? (
             <>
               <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                }
+              >
+                Perfil
+              </NavLink>
+
+              <NavLink
                 to="/panel/services"
                 className={({ isActive }) =>
                   isActive ? "text-blue-600 font-semibold" : "text-gray-700"

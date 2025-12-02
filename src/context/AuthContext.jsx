@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
     if (token && !user) {
       fetchUser();
     }
-  }, [token]);
+  }, [token, user]);
 
   const fetchUser = async () => {
     try {
@@ -48,6 +48,15 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("user");
   };
 
+  const updateUser = (data) => {
+    if (!data) return;
+    setUser((prev) => {
+      const merged = { ...prev, ...data };
+      localStorage.setItem("user", JSON.stringify(merged));
+      return merged;
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -56,6 +65,7 @@ export function AuthProvider({ children }) {
         role: user?.role || null,
         login,
         logout,
+        updateUser,
       }}
     >
       {children}

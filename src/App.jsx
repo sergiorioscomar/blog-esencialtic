@@ -19,6 +19,7 @@ import CreateService from "./pages/CreateService";
 import EditService from "./pages/EditService";
 import ServicesPanel from "./pages/ServicesPanel";
 import ServiceDetail from "./pages/ServiceDetail";
+import Profile from "./pages/Profile";
 
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
@@ -184,6 +185,15 @@ export default function App() {
                   element={
                     <PrivateRoute>
                       <ServiceDetail />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <Profile />
                     </PrivateRoute>
                   }
                 />

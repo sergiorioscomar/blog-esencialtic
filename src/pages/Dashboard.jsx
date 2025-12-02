@@ -8,7 +8,11 @@ export default function Dashboard() {
   const { role } = useAuth();
   const { data: posts, isLoading: isLoadingPosts } = usePosts();
   const { data: services, isLoading: isLoadingServices } = useServices();
-  const { data: hires, isLoading: isLoadingHires } = useServiceHires();
+  const {
+    data: hires,
+    isLoading: isLoadingHires,
+    error: hiresError,
+  } = useServiceHires();
   const deletePost = useDeletePost();
   const deleteService = useDeleteService();
 
@@ -152,9 +156,17 @@ export default function Dashboard() {
 
       <section>
         <h3 className="text-2xl font-semibold text-gray-800 mb-3">Contrataciones de servicios</h3>
-        {isLoadingHires ? (
+        {isLoadingHires && (
           <p className="text-center py-6 text-gray-500">Cargando contrataciones...</p>
-        ) : (
+        )}
+
+        {!isLoadingHires && hiresError && (
+          <p className="text-center py-6 text-red-600">
+            No pudimos cargar las contrataciones. {hiresError.response?.data?.message || hiresError.message}
+          </p>
+        )}
+
+        {!isLoadingHires && !hiresError && (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[32rem]">
               <thead>
@@ -166,38 +178,43 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {hires && Array.isArray(hires) && hires.length > 0 ? (
-                  hires.map((hire) => {
-                    const serviceTitle = hire.service_title ?? hire.service?.title ?? hire.service?.nombre ?? "Servicio";
-                    const userName = hire.user_name ?? hire.user?.name ?? "Usuario";
-                    const userEmail = hire.user_email ?? hire.user?.email ?? "Sin email";
-                    const hiredDate = hire.hired_at ?? hire.created_at ?? hire.fecha ?? "";
-                    return (
-                      <tr key={`${hire.id ?? hire.hire_id ?? `${serviceTitle}-${userEmail}`}`} className="border-b">
-                        <td className="p-2">{serviceTitle}</td>
-                        <td className="p-2 hidden sm:table-cell">{userName}</td>
-                        <td className="p-2 hidden md:table-cell">{userEmail}</td>
-                        <td className="p-2">
-                          {hiredDate
-                            ? new Date(hiredDate).toLocaleString("es-AR", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })
-                            : "—"}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan="4" className="p-4 text-center text-gray-500">
-                      No hay contrataciones registradas.
-                    </td>
-                  </tr>
-                )}
+                {(() => {
+                  const hiresList = Array.isArray(hires?.data) ? hires.data : hires;
+                  if (Array.isArray(hiresList) && hiresList.length > 0) {
+                    return hiresList.map((hire) => {
+                      const serviceTitle = hire.service_title ?? hire.service?.title ?? hire.service?.nombre ?? "Servicio";
+                      const userName = hire.user_name ?? hire.user?.name ?? "Usuario";
+                      const userEmail = hire.user_email ?? hire.user?.email ?? "Sin email";
+                      const hiredDate = hire.hired_at ?? hire.created_at ?? hire.fecha ?? "";
+                      return (
+                        <tr key={`${hire.id ?? hire.hire_id ?? `${serviceTitle}-${userEmail}`}`} className="border-b">
+                          <td className="p-2">{serviceTitle}</td>
+                          <td className="p-2 hidden sm:table-cell">{userName}</td>
+                          <td className="p-2 hidden md:table-cell">{userEmail}</td>
+                          <td className="p-2">
+                            {hiredDate
+                              ? new Date(hiredDate).toLocaleString("es-AR", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })
+                              : "—"}
+                          </td>
+                        </tr>
+                      );
+                    });
+                  }
+
+                  return (
+                    <tr>
+                      <td colSpan="4" className="p-4 text-center text-gray-500">
+                        No hay contrataciones registradas.
+                      </td>
+                    </tr>
+                  );
+                })()}
               </tbody>
             </table>
           </div>
