@@ -15,6 +15,10 @@ import Dashboard from "./pages/Dashboard";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
 import UsersPanel from "./pages/UsersPanel";
+import CreateService from "./pages/CreateService";
+import EditService from "./pages/EditService";
+import ServicesPanel from "./pages/ServicesPanel";
+import ServiceDetail from "./pages/ServiceDetail";
 
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
@@ -139,6 +143,47 @@ export default function App() {
                       <AdminRouteSuper>
                         <UsersPanel />
                       </AdminRouteSuper>
+                    </PrivateRoute>
+                  }
+                />
+
+                {/* Servicios para admins */}
+                <Route
+                  path="/admin/services/create"
+                  element={
+                    <PrivateRoute>
+                      <AdminRoute>
+                        <CreateService />
+                      </AdminRoute>
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/admin/services/edit/:id"
+                  element={
+                    <PrivateRoute>
+                      <AdminRoute>
+                        <EditService />
+                      </AdminRoute>
+                    </PrivateRoute>
+                  }
+                />
+
+                {/* Servicios para usuarios */}
+                <Route
+                  path="/panel/services"
+                  element={
+                    <PrivateRoute>
+                      <ServicesPanel />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/panel/services/:id"
+                  element={
+                    <PrivateRoute>
+                      <ServiceDetail />
                     </PrivateRoute>
                   }
                 />

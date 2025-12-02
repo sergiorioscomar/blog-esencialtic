@@ -29,6 +29,15 @@ export default function Navbar() {
 
           {token ? (
             <>
+              <NavLink
+                to="/panel/services"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                }
+              >
+                Servicios
+              </NavLink>
+
               {user?.role === "admin" && (
                 <NavLink
                   to="/admin"
