@@ -52,7 +52,7 @@ export default function ServicesPanel() {
       )}
 
       {services && Array.isArray(services) && services.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-2">
           {services.map((service) => {
             const title = service.title ?? service.titulo ?? service.nombre;
             const category = service.category ?? service.categoria;
@@ -66,51 +66,53 @@ export default function ServicesPanel() {
             return (
               <article
                 key={service.id}
-                className="bg-white rounded-xl shadow p-5 flex flex-col gap-3"
+                className="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row gap-4"
               >
-                <img
-                  src={image}
-                  alt={title}
-                  className="w-full h-40 object-cover rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = "/img/posts/default.png";
-                  }}
-                />
-                <div>
-                  <h3 className="text-xl font-semibold">
-                    {title}
-                  </h3>
-                  {category && (
-                    <p className="text-sm text-gray-500">
-                      {category}
+                <div className="md:w-48 flex-shrink-0">
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-40 object-cover rounded-xl"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/img/posts/default.png";
+                    }}
+                  />
+                </div>
+                <div className="flex-1 flex flex-col gap-3">
+                  <div>
+                    <p className="text-sm uppercase tracking-wide text-gray-500">
+                      {category || "Servicio"}
+                    </p>
+                    <h3 className="text-2xl font-semibold text-gray-900">
+                      {title}
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 flex-1">{description}</p>
+                  {displayPrice !== undefined &&
+                    displayPrice !== null &&
+                    displayPrice !== "" && (
+                    <p className="font-semibold text-emerald-600 text-lg">
+                      {`Desde $${displayPrice}`}
                     </p>
                   )}
-                </div>
-                <p className="text-gray-600 flex-1">{description}</p>
-                {displayPrice !== undefined &&
-                  displayPrice !== null &&
-                  displayPrice !== "" && (
-                  <p className="font-semibold text-emerald-600">
-                    {`Desde $${displayPrice}`}
-                  </p>
-                )}
 
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to={`/panel/services/${service.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Ver detalle
-                  </Link>
+                  <div className="flex items-center gap-4 mt-2">
+                    <Link
+                      to={`/panel/services/${service.id}`}
+                      className="text-blue-600 font-semibold hover:underline"
+                    >
+                      Ver detalle
+                    </Link>
 
-                  <button
-                    onClick={() => handleHire(service.id)}
-                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg disabled:opacity-60"
-                    disabled={hireService.isPending}
-                  >
-                    {hireService.isPending ? "Enviando..." : "Contratar"}
-                  </button>
+                    <button
+                      onClick={() => handleHire(service.id)}
+                      className="px-5 py-2 bg-emerald-600 text-white font-semibold rounded-lg disabled:opacity-60"
+                      disabled={hireService.isPending}
+                    >
+                      {hireService.isPending ? "Enviando..." : "Solicitar cotización"}
+                    </button>
+                  </div>
                 </div>
               </article>
             );

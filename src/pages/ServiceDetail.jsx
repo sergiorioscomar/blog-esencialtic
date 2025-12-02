@@ -90,7 +90,7 @@ export default function ServiceDetail() {
         className="mt-6 px-6 py-3 bg-emerald-600 text-white rounded-lg disabled:opacity-60"
         disabled={hireService.isPending}
       >
-        {hireService.isPending ? "Enviando..." : "Contratar servicio"}
+        {hireService.isPending ? "Enviando..." : "Solicitar cotización"}
       </button>
     </div>
   );

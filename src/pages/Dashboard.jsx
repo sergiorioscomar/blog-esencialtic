@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { usePosts, useDeletePost } from "../hooks/usePosts";
 import { useServices, useDeleteService } from "../hooks/useServices";
-import { useServiceHires } from "../hooks/useServiceHires";
+import { useServiceHires, useSendServiceQuote, useDeleteServiceHire } from "../hooks/useServiceHires";
 
 export default function Dashboard() {
   const { role } = useAuth();
@@ -13,6 +13,8 @@ export default function Dashboard() {
     isLoading: isLoadingHires,
     error: hiresError,
   } = useServiceHires();
+  const sendQuote = useSendServiceQuote();
+  const deleteHire = useDeleteServiceHire();
   const deletePost = useDeletePost();
   const deleteService = useDeleteService();
 
@@ -168,30 +170,51 @@ export default function Dashboard() {
 
         {!isLoadingHires && !hiresError && (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[32rem]">
+            <table className="w-full min-w-[42rem]">
               <thead>
                 <tr className="font-semibold text-gray-600">
                   <th className="text-left p-2">Servicio</th>
                   <th className="text-left p-2 hidden sm:table-cell">Usuario</th>
                   <th className="text-left p-2 hidden md:table-cell">Email</th>
-                  <th className="text-left p-2">Fecha</th>
+                  <th className="text-left p-2 hidden lg:table-cell">Fecha</th>
+                  <th className="text-left p-2">Estado</th>
+                  <th className="text-left p-2">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {(() => {
                   const hiresList = Array.isArray(hires?.data) ? hires.data : hires;
+                  const pendingQuotes = Array.isArray(hiresList)
+                    ? hiresList.filter((hire) => {
+                        const status = hire.quote_status ?? hire.estado ?? "sin_cotizar";
+                        return status !== "cotizada";
+                      })
+                    : [];
                   if (Array.isArray(hiresList) && hiresList.length > 0) {
-                    return hiresList.map((hire) => {
+                    if (pendingQuotes.length === 0) {
+                      return (
+                        <tr>
+                          <td colSpan="6" className="p-4 text-center text-gray-500">
+                            No hay cotizaciones pendientes.
+                          </td>
+                        </tr>
+                      );
+                    }
+
+                    return pendingQuotes.map((hire) => {
                       const serviceTitle = hire.service_title ?? hire.service?.title ?? hire.service?.nombre ?? "Servicio";
                       const userName = hire.user_name ?? hire.user?.name ?? "Usuario";
                       const userEmail = hire.user_email ?? hire.user?.email ?? "Sin email";
                       const hiredDate = hire.hired_at ?? hire.created_at ?? hire.fecha ?? "";
+                      const status = hire.quote_status ?? hire.estado ?? "sin_cotizar";
+                      const serviceId = hire.service_id ?? hire.service?.id ?? hire.service?.service_id;
+                      const userId = hire.user_id ?? hire.user?.id ?? hire.user?.user_id;
                       return (
                         <tr key={`${hire.id ?? hire.hire_id ?? `${serviceTitle}-${userEmail}`}`} className="border-b">
                           <td className="p-2">{serviceTitle}</td>
                           <td className="p-2 hidden sm:table-cell">{userName}</td>
                           <td className="p-2 hidden md:table-cell">{userEmail}</td>
-                          <td className="p-2">
+                          <td className="p-2 hidden lg:table-cell">
                             {hiredDate
                               ? new Date(hiredDate).toLocaleString("es-AR", {
                                   day: "2-digit",
@@ -201,6 +224,65 @@ export default function Dashboard() {
                                   minute: "2-digit",
                                 })
                               : "—"}
+                          </td>
+                          <td className="p-2">
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                status === "cotizada"
+                                  ? "bg-emerald-100 text-emerald-700"
+                                  : "bg-orange-100 text-orange-700"
+                              }`}
+                            >
+                              {status === "cotizada" ? "Cotizada" : "Sin cotizar"}
+                            </span>
+                          </td>
+                          <td className="p-2 space-y-2">
+                            <button
+                              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-60 w-full"
+                              disabled={sendQuote.isPending}
+                              onClick={() =>
+                                sendQuote.mutate(
+                                  { serviceId, userId },
+                                  {
+                                    onSuccess: () => {
+                                      alert("Cotización enviada y marcada como cotizada.");
+                                    },
+                                    onError: (error) => {
+                                      alert(
+                                        error.response?.data?.message ||
+                                          "No se pudo enviar la cotización.",
+                                      );
+                                    },
+                                  },
+                                )
+                              }
+                            >
+                              {sendQuote.isPending ? "Enviando..." : "Enviar cotización"}
+                            </button>
+
+                            <button
+                              className="px-4 py-1 bg-red-600 text-white rounded disabled:opacity-60 w-full"
+                              disabled={deleteHire.isPending}
+                              onClick={() => {
+                                if (!confirm("¿Eliminar esta cotización solicitada?")) return;
+                                deleteHire.mutate(
+                                  { serviceId, userId },
+                                  {
+                                    onSuccess: () => {
+                                      alert("Cotización eliminada correctamente.");
+                                    },
+                                    onError: (error) => {
+                                      alert(
+                                        error.response?.data?.message ||
+                                          "No se pudo eliminar la cotización.",
+                                      );
+                                    },
+                                  },
+                                );
+                              }}
+                            >
+                              {deleteHire.isPending ? "Eliminando..." : "Eliminar"}
+                            </button>
                           </td>
                         </tr>
                       );

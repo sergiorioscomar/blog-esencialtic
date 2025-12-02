@@ -20,6 +20,8 @@ import EditService from "./pages/EditService";
 import ServicesPanel from "./pages/ServicesPanel";
 import ServiceDetail from "./pages/ServiceDetail";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
@@ -96,6 +98,24 @@ export default function App() {
                   element={
                     <PublicOnlyRoute>
                       <Register />
+                    </PublicOnlyRoute>
+                  }
+                />
+
+                <Route
+                  path="/forgot-password"
+                  element={
+                    <PublicOnlyRoute>
+                      <ForgotPassword />
+                    </PublicOnlyRoute>
+                  }
+                />
+
+                <Route
+                  path="/reset-password"
+                  element={
+                    <PublicOnlyRoute>
+                      <ResetPassword />
                     </PublicOnlyRoute>
                   }
                 />
