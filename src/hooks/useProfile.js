@@ -18,6 +18,7 @@ export function useUpdateProfile() {
     mutationFn: updateProfile,
     onSuccess: (data) => {
       queryClient.setQueryData(["profile"], data);
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
   });
 }

@@ -42,6 +42,9 @@ export default function Profile() {
   const handleProfileSubmit = (e) => {
     e.preventDefault();
     setFeedback("");
+    setProfileForm((prev) => ({
+      ...prev,
+    }));
     updateProfile.mutate(
       {
         name: profileForm.name,
@@ -53,6 +56,12 @@ export default function Profile() {
         onSuccess: (data) => {
           setFeedback("Perfil actualizado correctamente.");
           updateUser?.(data);
+          setProfileForm({
+            name: data.name ?? "",
+            email: data.email ?? "",
+            username: data.username ?? "",
+            avatar: data.profile_photo_url ?? "",
+          });
         },
         onError: (error) => {
           setFeedback(
