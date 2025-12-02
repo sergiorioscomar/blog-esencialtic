@@ -19,6 +19,7 @@ import UsersPanel from "./pages/UsersPanel";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
 import AdminRouteSuper from "./routes/AdminRouteSuper";
+import PublicOnlyRoute from "./routes/PublicOnlyRoute";
 
 const queryClient = new QueryClient();
 
@@ -76,8 +77,23 @@ export default function App() {
                 <Route path="/post/:id" element={<PostDetail />} />
 
                 {/* Auth */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/login"
+                  element={
+                    <PublicOnlyRoute>
+                      <Login />
+                    </PublicOnlyRoute>
+                  }
+                />
+
+                <Route
+                  path="/register"
+                  element={
+                    <PublicOnlyRoute>
+                      <Register />
+                    </PublicOnlyRoute>
+                  }
+                />
 
                 {/* Dashboard admin */}
                 <Route
