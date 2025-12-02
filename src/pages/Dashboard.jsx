@@ -207,8 +207,23 @@ export default function Dashboard() {
                       const userEmail = hire.user_email ?? hire.user?.email ?? "Sin email";
                       const hiredDate = hire.hired_at ?? hire.created_at ?? hire.fecha ?? "";
                       const status = hire.quote_status ?? hire.estado ?? "sin_cotizar";
-                      const serviceId = hire.service_id ?? hire.service?.id ?? hire.service?.service_id;
-                      const userId = hire.user_id ?? hire.user?.id ?? hire.user?.user_id;
+                      const serviceId =
+                        hire.service_id ??
+                        hire.service?.id ??
+                        hire.service?.service_id ??
+                        hire.pivot?.service_id;
+                      const userId =
+                        hire.user_id ??
+                        hire.user?.id ??
+                        hire.user?.user_id ??
+                        hire.pivot?.user_id;
+                      const price =
+                        hire.price ??
+                        hire.service_price ??
+                        hire.service?.price ??
+                        hire.service?.precio ??
+                        hire.pivot?.price ??
+                        0;
                       return (
                         <tr key={`${hire.id ?? hire.hire_id ?? `${serviceTitle}-${userEmail}`}`} className="border-b">
                           <td className="p-2">{serviceTitle}</td>
@@ -242,7 +257,7 @@ export default function Dashboard() {
                               disabled={sendQuote.isPending}
                               onClick={() =>
                                 sendQuote.mutate(
-                                  { serviceId, userId },
+                                  { serviceId, userId, price },
                                   {
                                     onSuccess: () => {
                                       alert("Cotización enviada y marcada como cotizada.");

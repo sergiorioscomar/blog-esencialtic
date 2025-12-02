@@ -17,10 +17,11 @@ export const deleteServiceHire = async ({ serviceId, userId }) => {
   return res.data;
 };
 
-export const sendServiceQuote = async ({ serviceId, userId }) => {
+export const sendServiceQuote = async ({ serviceId, userId, price }) => {
   const res = await api.post("/cotizaciones/enviar", {
     service_id: serviceId,
     user_id: userId,
+    price,
   });
   return res.data;
 };
