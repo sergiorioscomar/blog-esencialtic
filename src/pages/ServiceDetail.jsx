@@ -41,8 +41,9 @@ export default function ServiceDetail() {
     service.image_url ??
     service.image ??
     service.imagen ??
-    "/img/posts/default.png";
+    "/img/service/default.png";
   const description = service.description ?? service.descripcion ?? "";
+  const content = service.content ?? service.content ?? "";
   const displayPrice = service.price ?? service.precio;
 
   return (
@@ -73,11 +74,12 @@ export default function ServiceDetail() {
         className="mt-6 rounded-lg"
         onError={(e) => {
           e.currentTarget.onerror = null;
-          e.currentTarget.src = "/img/posts/default.png";
+          e.currentTarget.src = "/img/service/default.png";
         }}
       />
 
       <p className="mt-6 text-lg text-gray-700">{description}</p>
+      <p className="mt-6 text-lg text-gray-700">{content}</p>
 
       {feedback && (
         <div className="mt-6 p-4 bg-emerald-50 text-emerald-700 rounded border border-emerald-200">

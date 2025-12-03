@@ -54,9 +54,9 @@ export default function App() {
                         <div>
                           <Carousel
                             images={[
-                              { src: "/carousel/slide1.jpg", link: "/post/1" },
-                              { src: "/carousel/slide3.jpg", link: "/post/2" },
-                              { src: "/carousel/slide2.jpg", link: "/post/3" },
+                              { src: "/carousel/slide1.png", link: "/panel/services/1" },
+                              { src: "/carousel/slide2.png", link: "/panel/services/2" },
+                              { src: "/carousel/slide3.png", link: "/panel/services/3" },
                             ]}
                           />
                         </div>
