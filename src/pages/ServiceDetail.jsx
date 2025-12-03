@@ -43,7 +43,7 @@ export default function ServiceDetail() {
     service.imagen ??
     "/img/service/default.png";
   const description = service.description ?? service.descripcion ?? "";
-  const content = service.content ?? service.content ?? "";
+  const content = service.content ?? service.contenido ?? "";
   const displayPrice = service.price ?? service.precio;
 
   return (
@@ -79,7 +79,10 @@ export default function ServiceDetail() {
       />
 
       <p className="mt-6 text-lg text-gray-700">{description}</p>
-      <p className="mt-6 text-lg text-gray-700">{content}</p>
+
+      {content && (
+        <div className="mt-6 text-gray-800 whitespace-pre-line">{content}</div>
+      )}
 
       {feedback && (
         <div className="mt-6 p-4 bg-emerald-50 text-emerald-700 rounded border border-emerald-200">

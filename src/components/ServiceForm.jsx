@@ -12,7 +12,7 @@ const EMPTY_FORM = {
 const mapInitialValues = (values = {}) => ({
   title: values.title ?? values.titulo ?? "",
   description: values.description ?? values.descripcion ?? "",
-  content: values.content ?? values.content ?? "",
+  content: values.content ?? values.contenido ?? "",
   price: values.price ?? values.precio ?? "",
   category: values.category ?? values.categoria ?? "",
   image_url: values.image_url ?? values.image ?? values.imagen ?? "",
@@ -47,7 +47,7 @@ export default function ServiceForm({
     }
 
     if (!form.content.trim()) {
-      newErrors.content = "El contenido es obligatoria";
+      newErrors.content = "El contenido es obligatorio";
     }
 
     if (form.price === "" || Number.isNaN(Number(form.price))) {
@@ -105,6 +105,16 @@ export default function ServiceForm({
       />
       {errors.description && (
         <p className="text-red-600 text-sm">{errors.description}</p>
+      )}
+
+      <textarea
+        placeholder="Contenido detallado"
+        value={form.content}
+        className={`border rounded-lg px-3 py-2 h-32 ${errors.content ? "border-red-500" : ""}`}
+        onChange={(e) => handleChange("content", e.target.value)}
+      />
+      {errors.content && (
+        <p className="text-red-600 text-sm">{errors.content}</p>
       )}
 
       <input
