@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const EMPTY_FORM = {
   title: "",
   description: "",
+  content: "",
   price: "",
   category: "",
   image_url: "",
@@ -11,6 +12,7 @@ const EMPTY_FORM = {
 const mapInitialValues = (values = {}) => ({
   title: values.title ?? values.titulo ?? "",
   description: values.description ?? values.descripcion ?? "",
+  content: values.content ?? values.content ?? "",
   price: values.price ?? values.precio ?? "",
   category: values.category ?? values.categoria ?? "",
   image_url: values.image_url ?? values.image ?? values.imagen ?? "",
@@ -44,6 +46,10 @@ export default function ServiceForm({
       newErrors.description = "La descripción es obligatoria";
     }
 
+    if (!form.content.trim()) {
+      newErrors.content = "El contenido es obligatoria";
+    }
+
     if (form.price === "" || Number.isNaN(Number(form.price))) {
       newErrors.price = "Ingresa un precio válido";
     }
@@ -62,6 +68,7 @@ export default function ServiceForm({
     onSubmit({
       title: form.title,
       description: form.description,
+      content: form.content,
       price: Number(form.price),
       category: form.category,
       image_url: form.image_url,
@@ -69,6 +76,7 @@ export default function ServiceForm({
       imagen: form.image_url,
       titulo: form.title,
       descripcion: form.description,
+      contenido: form.content,
       categoria: form.category,
       precio: Number(form.price),
     });
