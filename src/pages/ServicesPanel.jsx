@@ -10,9 +10,9 @@ export default function ServicesPanel() {
   const handleHire = (serviceId) => {
     setFeedback("");
     hireService.mutate(serviceId, {
-      onSuccess: () => setFeedback("¡Servicio contratado! Nuestro equipo te contactará pronto."),
+      onSuccess: () => setFeedback("¡Se solicito la cotizacion con exito! Nuestro equipo te contactará pronto."),
       onError: () =>
-        setFeedback("No se pudo contratar el servicio. Intenta nuevamente."),
+        setFeedback("No se pudo pedir cotizacion el servicio. Intenta nuevamente."),
     });
   };
 
