@@ -52,7 +52,7 @@ export default function ServicesPanel() {
       )}
 
       {services && Array.isArray(services) && services.length > 0 ? (
-          <div className="grid gap-6 lg:grid-cols-2">
+        <div className="flex flex-col gap-8">
           {services.map((service) => {
             const title = service.title ?? service.titulo ?? service.nombre;
             const category = service.category ?? service.categoria;
@@ -66,13 +66,13 @@ export default function ServicesPanel() {
             return (
               <article
                 key={service.id}
-                className="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row gap-4"
+                className="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row gap-4 border border-gray-100"
               >
                 <div className="md:w-48 flex-shrink-0">
                   <img
                     src={image}
                     alt={title}
-                    className="w-full h-40 object-cover rounded-xl"
+                    className="w-full h-40 object-cover rounded-xl shadow-sm"
                     onError={(e) => {
                       e.currentTarget.onerror = null;
                       e.currentTarget.src = "/img/posts/default.png";
@@ -81,14 +81,14 @@ export default function ServicesPanel() {
                 </div>
                 <div className="flex-1 flex flex-col gap-3">
                   <div>
-                    <p className="text-sm uppercase tracking-wide text-gray-500">
+                    <p className="text-xs uppercase tracking-[0.2em] text-gray-500 font-semibold">
                       {category || "Servicio"}
                     </p>
-                    <h3 className="text-2xl font-semibold text-gray-900">
+                    <h3 className="text-3xl font-bold text-gray-900">
                       {title}
                     </h3>
                   </div>
-                  <p className="text-gray-600 flex-1">{description}</p>
+                  <p className="text-gray-600 flex-1 leading-relaxed">{description}</p>
                   {/*
                   {displayPrice !== undefined &&
                     displayPrice !== null &&
@@ -98,7 +98,7 @@ export default function ServicesPanel() {
                     </p>
                   )} */}
 
-                  <div className="flex items-center gap-4 mt-2">
+                  <div className="flex items-center gap-4 mt-4">
                     <Link
                       to={`/panel/services/${service.id}`}
                       className="text-blue-600 font-semibold hover:underline"
@@ -108,7 +108,7 @@ export default function ServicesPanel() {
 
                     <button
                       onClick={() => handleHire(service.id)}
-                      className="px-5 py-2 bg-emerald-600 text-white font-semibold rounded-lg disabled:opacity-60"
+                      className="px-5 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow disabled:opacity-60"
                       disabled={hireService.isPending}
                     >
                       {hireService.isPending ? "Enviando..." : "Solicitar cotización"}
