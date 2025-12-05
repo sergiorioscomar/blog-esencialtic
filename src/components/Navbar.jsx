@@ -9,10 +9,13 @@ export default function Navbar() {
       <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
         
         {/* Logo - vuelve al inicio */}
-        <NavLink
-          to="/"
-          className="text-4xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient">
-          Porfolio
+        <NavLink to="/" className="flex items-center gap-3">
+          <img
+            src="https://esencialtic.com.ar/assets/img/ESENCIALTIC.png"
+            alt="Porfolio"
+            className="h-12 object-contain drop-shadow-[2px_4px_6px_rgba(0,0,0,0.5)]"
+          />
+          <span className="sr-only">Porfolio</span>
         </NavLink>
 
         {/* Links */}
