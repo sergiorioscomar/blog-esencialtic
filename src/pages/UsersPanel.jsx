@@ -59,7 +59,7 @@ export default function UsersPanel() {
                         role: u.role === "admin" ? "user" : "admin",
                       })
                     }
-                    className="px-3 py-1 bg-blue-600 text-white rounded"
+                    className="px-3 py-1 bg-emerald-600 text-white rounded"
                   >
                     {u.role === "admin" ? "Quitar Admin" : "Hacer Admin"}
                   </button>

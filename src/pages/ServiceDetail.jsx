@@ -28,7 +28,7 @@ export default function ServiceDetail() {
         <p className="text-gray-600 mb-4">
           No encontramos información del servicio.
         </p>
-        <Link to="/panel/services" className="text-blue-600 hover:underline">
+        <Link to="/panel/services" className="text-emerald-600 hover:underline">
           ← Volver al listado
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default function ServiceDetail() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
-      <Link to="/panel/services" className="text-blue-600 hover:underline">
+      <Link to="/panel/services" className="text-emerald-600 hover:underline">
         ← Volver
       </Link>
 

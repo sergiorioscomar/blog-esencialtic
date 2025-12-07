@@ -116,7 +116,7 @@ export default function EditPost() {
 
         <button 
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg"
           disabled={mutation.isPending}
         >
           {mutation.isPending ? "Guardando..." : "Guardar cambios"}

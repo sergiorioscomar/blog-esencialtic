@@ -178,7 +178,7 @@ export default function Profile() {
 
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg disabled:opacity-60"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg disabled:opacity-60"
             disabled={updateProfile.isPending}
           >
             {updateProfile.isPending ? "Guardando..." : "Guardar cambios"}

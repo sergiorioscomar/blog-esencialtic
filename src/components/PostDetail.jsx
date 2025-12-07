@@ -25,7 +25,7 @@ export default function PostDetail() {
     <div className="max-w-3xl mx-auto px-4 py-10">
       <Link
         to="/"
-        className="text-blue-600 hover:underline block mb-4"
+        className="text-emerald-600 hover:underline block mb-4"
       >
         ← Volver
       </Link>

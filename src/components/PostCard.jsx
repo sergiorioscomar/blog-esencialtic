@@ -37,7 +37,7 @@ export default function PostCard({ post }) {
         <div className="flex justify-between items-center mt-2">
 
           {/* CATEGORÍA */}
-          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
+          <span className="px-2 py-1 bg-emerald-100 text-emerald-700 rounded text-xs">
             {post.categoria || "Sin categoría"}
           </span>
 
@@ -47,7 +47,7 @@ export default function PostCard({ post }) {
             {/* Ícono leer */}
             <a 
               href={`/post/${post.id}`}
-              className="text-blue-600 hover:text-blue-800 transition"
+              className="text-emerald-600 hover:text-emerald-800 transition"
               title="Leer publicación"
             >
               <svg 

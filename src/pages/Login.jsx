@@ -78,7 +78,7 @@ export default function Login() {
 
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded-lg transition"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white w-full py-2 rounded-lg transition"
           disabled={mutation.isPending}
         >
           {mutation.isPending ? "Ingresando..." : "Ingresar"}
@@ -93,13 +93,13 @@ export default function Login() {
 
         <p className="text-center text-sm text-gray-600">
           ¿No tenés cuenta?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
+          <Link to="/register" className="text-emerald-600 hover:underline">
             Registrate
           </Link>
         </p>
 
         <p className="text-center text-sm">
-          <Link to="/forgot-password" className="text-blue-600 hover:underline">
+          <Link to="/forgot-password" className="text-emerald-600 hover:underline">
             ¿Olvidaste tu contraseña?
           </Link>
         </p>

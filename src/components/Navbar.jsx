@@ -13,7 +13,7 @@ export default function Navbar() {
           <img
             src="https://esencialtic.com.ar/assets/img/ESENCIALTIC.png"
             alt="Porfolio"
-            className="h-12 object-contain drop-shadow-[2px_4px_6px_rgba(0,0,0,0.5)]"
+            className="h-14 object-contain drop-shadow-[2px_4px_6px_rgba(0,0,0,0.9)]"
           />
           <span className="sr-only">Porfolio</span>
         </NavLink>
@@ -24,7 +24,7 @@ export default function Navbar() {
           {/* <NavLink 
             to="/home"
             className={({ isActive }) =>
-              isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+              isActive ? "text-emerald-600 font-semibold" : "text-gray-700"
             }
           >
             Inicio
@@ -35,7 +35,7 @@ export default function Navbar() {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                  isActive ? "text-emerald-600 font-semibold" : "text-gray-700"
                 }
               >
                 Perfil
@@ -44,7 +44,7 @@ export default function Navbar() {
               <NavLink
                 to="/panel/services"
                 className={({ isActive }) =>
-                  isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                  isActive ? "text-emerald-600 font-semibold" : "text-gray-700"
                 }
               >
                 Servicios
@@ -54,7 +54,7 @@ export default function Navbar() {
                 <NavLink
                   to="/admin"
                   className={({ isActive }) =>
-                    isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                    isActive ? "text-emerald-600 font-semibold" : "text-gray-700"
                   }
                 >
                   Admin
@@ -65,7 +65,7 @@ export default function Navbar() {
                 <NavLink
                   to="/admin/users"
                   className={({ isActive }) =>
-                    isActive ? "text-blue-600 font-semibold" : "text-gray-700"
+                    isActive ? "text-emerald-600 font-semibold" : "text-gray-700"
                   }
                 >
                   Users
@@ -74,13 +74,13 @@ export default function Navbar() {
 
               <button
                 onClick={logout}
-                className="text-blue-600 hover:underline"
+                className="text-emerald-600 hover:underline"
               >
                 Cerrar sesión
               </button>
             </>
           ) : (
-            <NavLink to="/login" className="text-blue-600 hover:underline">
+            <NavLink to="/login" className="text-emerald-600 hover:underline">
               Login
             </NavLink>
           )}

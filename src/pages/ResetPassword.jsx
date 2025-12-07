@@ -105,7 +105,7 @@ export default function ResetPassword() {
         </button>
       </form>
 
-      <Link to="/login" className="text-blue-600 hover:underline inline-block mt-6">
+      <Link to="/login" className="text-emerald-600 hover:underline inline-block mt-6">
         ← Volver al login
       </Link>
     </div>

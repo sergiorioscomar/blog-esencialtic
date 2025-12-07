@@ -50,14 +50,14 @@ export default function ForgotPassword() {
 
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg disabled:opacity-60"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg disabled:opacity-60"
           disabled={forgotPasswordMutation.isPending}
         >
           {forgotPasswordMutation.isPending ? "Enviando..." : "Enviar instrucciones"}
         </button>
       </form>
 
-      <Link to="/login" className="text-blue-600 hover:underline inline-block mt-6">
+      <Link to="/login" className="text-emerald-600 hover:underline inline-block mt-6">
         ← Volver al login
       </Link>
     </div>

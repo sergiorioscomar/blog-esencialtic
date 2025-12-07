@@ -39,7 +39,7 @@ export default function ServicesPanel() {
         </div>
         <Link
           to="/"
-          className="text-sm text-blue-600 hover:underline self-start sm:self-center"
+          className="text-sm text-emerald-600 hover:underline self-start sm:self-center"
         >
           ← Volver al inicio
         </Link>
@@ -101,7 +101,7 @@ export default function ServicesPanel() {
                   <div className="flex items-center gap-4 mt-4">
                     <Link
                       to={`/panel/services/${service.id}`}
-                      className="text-blue-600 font-semibold hover:underline"
+                      className="text-emerald-600 font-semibold hover:underline"
                     >
                       Ver detalle
                     </Link>

@@ -74,7 +74,7 @@ export default function Carousel({ images = [], autoPlay = true, interval = 4000
             key={i}
             onClick={() => setCurrentIndex(i)}
             className={`w-3 h-3 rounded-full cursor-pointer transition ${
-              i === currentIndex ? "bg-blue-600" : "bg-white border"
+              i === currentIndex ? "bg-emerald-600" : "bg-white border"
             }`}
           ></div>
         ))}

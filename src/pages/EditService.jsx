@@ -25,7 +25,7 @@ export default function EditService() {
         <p className="text-gray-600 mb-4">
           No se pudo cargar la información del servicio.
         </p>
-        <Link to="/admin" className="text-blue-600 hover:underline">
+        <Link to="/admin" className="text-emerald-600 hover:underline">
           ← Volver al panel
         </Link>
       </div>

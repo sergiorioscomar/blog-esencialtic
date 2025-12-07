@@ -26,7 +26,7 @@ export default function Dashboard() {
         {role === "admin" && (
           <Link
             to="/admin/create"
-            className="bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-emerald-600 text-white px-4 py-2 rounded"
           >
             ➕ Crear nuevo Post
           </Link>
@@ -62,7 +62,7 @@ export default function Dashboard() {
                     <td className="p-2 flex justify-evenly gap-4">
                       {role === "admin" && (
                         <>
-                          <Link to={`/admin/edit/${post.id}`} className="text-blue-600">
+                          <Link to={`/admin/edit/${post.id}`} className="text-emerald-600">
                             Editar
                           </Link>
                           <button
@@ -125,7 +125,7 @@ export default function Dashboard() {
                       <td className="p-2 flex justify-evenly gap-4">
                         {role === "admin" && (
                           <>
-                            <Link to={`/admin/services/edit/${service.id}`} className="text-blue-600">
+                            <Link to={`/admin/services/edit/${service.id}`} className="text-emerald-600">
                               Editar
                             </Link>
                             <button
@@ -253,7 +253,7 @@ export default function Dashboard() {
                           </td>
                           <td className="p-2 space-y-2">
                             <button
-                              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-60 w-full"
+                              className="px-4 py-1 bg-emerald-600 text-white rounded disabled:opacity-60 w-full"
                               disabled={sendQuote.isPending}
                               onClick={() =>
                                 sendQuote.mutate(
