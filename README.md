@@ -59,14 +59,17 @@ Aparte de dejar funcionando un porfolio bonito
 ### Api Backend - api proyectos
 ![Vista previa del blog](./src/assets/backend.png)
 ### DOCs: https://proyectos.esencialtic.com.ar/api para revisar los permisos de los entpoint
-##Cuenta con cuatro (4) perfiles (roles).
-1-superusers (id=2)
-Solo para gestion de usuarios
-2-admin
-Puede administrar servicios, publicaciones de proyectos, y ver pedidos de cotizacion y envios de cotizacion a los clientes.
-3-usuarios registrados (clientes)
-Pueden ver los proyectos, ver los servicios y pedir cotizacion
-4-visitantes
-Solo pueden ver los proyectos, deben registrarse si quieren ver los detalles de los servicios y pedir cotizacion.
+## Cuenta con cuatro (4) perfiles (roles).
+#### 1-superusers (id=2)
+#### Solo para gestion de usuarios
+#### 2-admin
+#### Puede administrar servicios, publicaciones de proyectos, y ver pedidos de cotizacion y envios de cotizacion a los clientes.
+#### 3-usuarios registrados (clientes)
+#### Pueden ver los proyectos, ver los servicios y pedir cotizacion
+#### 4-visitantes
+#### Solo pueden ver los proyectos, deben registrarse si quieren ver los detalles de los servicios y pedir cotizacion.
 
-superadmin, admin, y usuarios registrados pueden gestionar su perfil.
+#### superadmin, admin, y usuarios registrados pueden gestionar su perfil.
+# Este proyecto me sirve para gestionar proyectos desde mi app porfolio y mostrarlos en el sitio web principal. aparte de vincular los servicios para que puedan pedir cotizacion con un solo click desde su cuenta.
+## Proyectos esencialtic.com.ar
+![Vista previa del blog](./src/assets/proyectos_esencialtic.png)
