@@ -33,3 +33,26 @@ Aparte de dejar funcionando un porfolio bonito
 ### Api Backend - api proyectos
 ![Vista previa del blog](./src/assets/api-proyectos-esencialtic.png)
 ### DOCs: https://proyectos.esencialtic.com.ar/api
+
+## 07-dic-2025 - Mejoras para tercera entrega del trabajo.
+
+# Nueva vista v.3.0 del Panel para Gestión de proyectos para mostrarlos en la web principal de esencialtic.com.ar
+Aparte de dejar funcionando un porfolio bonito
+
+![Vista previa del blog](./src/assets/porfolio.png) (3ra Entraga Informatorio curso de React)
+
+
+## Gestor de Proyectos, servicios y cotizaciones recibidas con funcion de envio de cotizacion por email
+![Vista previa del blog](./src/assets/3-admin.png) 
+
+### Servicios
+![Vista previa del blog](./src/assets/2-servicios.png) 
+
+## Gestor de Usuarios
+![Vista previa del blog](./src/assets/4-usuarios.png)
+
+## Perfil
+![Vista previa del blog](./src/assets/1-perfil.png)
+
+### Api Backend - api proyectos
+![Vista previa del blog](./src/assets/backend.png)
