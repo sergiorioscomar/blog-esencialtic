@@ -1,75 +1,75 @@
-# React + Vite
-### Instalar dependencias
-- npm i
-### Testing
-- npm run dev
-### Optimizar tu código para producción
-- npm run build
+# Blog Esencialtic · Portfolio + Panel de Gestión
 
-# blog-esencialtic porfolio
+Aplicación React + Vite que reúne un portfolio público, un panel privado para gestionar proyectos/servicios y una integración directa con la API de esencialtic.com.ar para mantener todo sincronizado.
 
-## 📰 Latest Posts Landing Page
+---
 
-### Vista previa del proyecto:
+## 🚀 Puesta en marcha
 
-![Vista previa del blog](./src/assets/preview.png) v.1.0 (1ra Entraga Informatorio curso de React)
+| Acción | Comando |
+| --- | --- |
+| Instalar dependencias | `npm install` |
+| Servidor de desarrollo | `npm run dev` |
+| Build de producción | `npm run build` |
 
-## 20-nov-2025 - Mejoras para segunda entrega del trabajo.
+---
 
-# Nueva vista v.2.0 del Panel para Gestión de proyectos para mostrarlos en la web principal de esencialtic.com.ar
-Aparte de dejar funcionando un porfolio bonito
+## 🧱 Stack
 
-![Vista previa del blog](./src/assets/proyecto-react.png) (2da Entraga Informatorio curso de React)
+- **Frontend:** React + Vite + Tailwind CSS
+- **Backend / API:** Laravel + Sanctum (`https://proyectos.esencialtic.com.ar/api`)
+- **Roles disponibles:**
+  1. `superusers` (id = 2) · gestión de usuarios
+  2. `admin` · servicios, proyectos, cotizaciones
+  3. `usuarios registrados` · ven proyectos/servicios y piden cotizaciones
+  4. `visitantes` · solo visualización pública
 
-### Gestor de Proyectos
-![Vista previa del blog](./src/assets/proyecto-react2-gestorproyects.png) 
+Superadmin, admin y usuarios registrados pueden administrar su perfil dentro de la app.
 
-### Gestor de Usuarios
-![Vista previa del blog](./src/assets/proyecto-react3-gestorusers.png)
+---
 
-# Fronted: React + Vite + tailwind
-## Backend: Api Laravel + sanctum
+## 📚 Historial de entregas
 
-### Api Backend - api proyectos
-![Vista previa del blog](./src/assets/api-proyectos-esencialtic.png)
-### DOCs: https://proyectos.esencialtic.com.ar/api
+### 1️⃣ 1ra Entrega · v1.0 — Landing de posts recientes
+- Versión inicial enfocada en mostrar publicaciones del blog estilo portfolio.
+- **Screenshot:**  
+  ![Vista previa v1.0](./src/assets/preview.png)
 
-## 07-dic-2025 - Mejoras para tercera entrega del trabajo.
+### 2️⃣ 2da Entrega · v2.0 (20-nov-2025) — Panel de proyectos
+- Se agregó un panel renovado para gestionar proyectos y exponerlos en la web principal.
+- Incluye primeras vistas del gestor de proyectos y usuarios.
+- **Panel principal:**  
+  ![Panel v2.0](./src/assets/proyecto-react.png)
+- **Gestor de Proyectos:**  
+  ![Gestor de proyectos](./src/assets/proyecto-react2-gestorproyects.png)
+- **Gestor de Usuarios:**  
+  ![Gestor de usuarios](./src/assets/proyecto-react3-gestorusers.png)
+- **API de proyectos (Laravel + Sanctum):**  
+  ![API proyectos](./src/assets/api-proyectos-esencialtic.png)
 
-# Nueva vista v.3.0 del Panel para Gestión de proyectos para mostrarlos en la web principal de esencialtic.com.ar
-Aparte de dejar funcionando un porfolio bonito
+### 3️⃣ 3ra Entrega · v3.0 (07-dic-2025) — Panel completo + perfiles
+- Panel mejorado que integra servicios, proyectos y envío de cotizaciones por email.
+- Portfolio público actualizado y se documentaron todos los flujos principales.
+- **Portfolio público:**  
+  ![Portfolio v3.0](./src/assets/porfolio.png)
+- **Login:**  
+  ![Login](./src/assets/0-login.png)
+- **Dashboard general (proyectos/servicios/cotizaciones):**  
+  ![Dashboard](./src/assets/3-admin.png)
+- **Servicios:**  
+  ![Servicios](./src/assets/2-servicios.png)
+- **Gestor de Usuarios:**  
+  ![Usuarios](./src/assets/4-usuarios.png)
+- **Perfil del usuario:**  
+  ![Perfil](./src/assets/1-perfil.png)
+- **API Backend / permisos:**  
+  ![Backend](./src/assets/backend.png)
 
-![Vista previa del blog](./src/assets/porfolio.png) (3ra Entraga Informatorio curso de React)
+---
 
-## login
-![Vista previa del blog](./src/assets/0-login.png) 
+## 🎯 Objetivo
 
-## Gestor de Proyectos, servicios y cotizaciones recibidas con funcion de envio de cotizacion por email
-![Vista previa del blog](./src/assets/3-admin.png) 
+Centralizar la gestión de proyectos y servicios de esencialtic.com.ar desde mi portfolio, permitiendo publicar rápidamente en la web principal y vincular cada servicio con un flujo de cotización en un clic.
 
-### Servicios
-![Vista previa del blog](./src/assets/2-servicios.png) 
-
-## Gestor de Usuarios
-![Vista previa del blog](./src/assets/4-usuarios.png)
-
-## Perfil
-![Vista previa del blog](./src/assets/1-perfil.png)
-
-### Api Backend - api proyectos
-![Vista previa del blog](./src/assets/backend.png)
-### DOCs: https://proyectos.esencialtic.com.ar/api para revisar los permisos de los entpoint
-## Cuenta con cuatro (4) perfiles (roles).
-#### 1-superusers (id=2)
-#### Solo para gestion de usuarios
-#### 2-admin
-#### Puede administrar servicios, publicaciones de proyectos, y ver pedidos de cotizacion y envios de cotizacion a los clientes.
-#### 3-usuarios registrados (clientes)
-#### Pueden ver los proyectos, ver los servicios y pedir cotizacion
-#### 4-visitantes
-#### Solo pueden ver los proyectos, deben registrarse si quieren ver los detalles de los servicios y pedir cotizacion.
-
-#### superadmin, admin, y usuarios registrados pueden gestionar su perfil.
-# Este proyecto me sirve para gestionar proyectos desde mi app porfolio y mostrarlos en el sitio web principal. aparte de vincular los servicios para que puedan pedir cotizacion con un solo click desde su cuenta.
-## Proyectos esencialtic.com.ar
-![Vista previa del blog](./src/assets/proyectos_esencialtic.png)
+**Vista general del sitio de proyectos:**  
+![Sitio esencialtic](./src/assets/proyectos_esencialtic.png)
